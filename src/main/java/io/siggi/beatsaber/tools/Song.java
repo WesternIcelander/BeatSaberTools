@@ -110,6 +110,7 @@ public class Song {
             try (InputStream in = container.getFile(file)) {
                 data = new byte[(int) fileSize];
                 IO.readFully(in, data);
+                dataCache.put(file, data);
             } catch (Exception e) {
                 return null;
             }

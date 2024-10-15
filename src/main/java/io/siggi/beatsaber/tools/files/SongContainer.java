@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.zip.ZipFile;
 
 public abstract class SongContainer implements Closeable {
@@ -13,6 +14,8 @@ public abstract class SongContainer implements Closeable {
     public abstract InputStream getFile(String name) throws IOException;
 
     public abstract long getFileSize(String name);
+
+    public abstract Collection<String> getAllFiles();
 
     public static SongContainer open(File file) throws IOException {
         if (file.getName().equals("Info.dat")) {

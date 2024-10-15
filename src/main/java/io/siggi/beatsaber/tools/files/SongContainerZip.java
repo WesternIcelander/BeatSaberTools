@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -41,6 +45,18 @@ public class SongContainerZip extends SongContainer {
         }
         if (entry == null) return 0L;
         return entry.getSize();
+    }
+
+    @Override
+    public Collection<String> getAllFiles() {
+        Set<String> items = new HashSet<>();
+        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+            if (entry.isDirectory()) continue;
+            items.add(entry.getName());
+        }
+        return items;
     }
 
     @Override

@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static io.siggi.beatsaber.tools.util.BSTUtil.asDouble;
 import static io.siggi.beatsaber.tools.util.BSTUtil.asString;
 
 public class Song {
@@ -51,6 +52,18 @@ public class Song {
 
     public String getLevelAuthor() {
         return asString(getInfoJson().get("_levelAuthorName"));
+    }
+
+    public double getBeatsPerMinute() {
+        return asDouble(getInfoJson().get("_beatsPerMinute"), 0.0);
+    }
+
+    public String getSongFile() {
+        return asString(getInfoJson().get("_songFilename"));
+    }
+
+    public String getCoverFile() {
+        return asString(getInfoJson().get("_coverImageFilename"));
     }
 
     public String getHash() {

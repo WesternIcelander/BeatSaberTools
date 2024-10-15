@@ -45,6 +45,11 @@ public class BSTUtil {
         return element.getAsString();
     }
 
+    public static double asDouble(JsonElement element, double defaultIfNull) {
+        if (element == null) return defaultIfNull;
+        return element.getAsDouble();
+    }
+
     public static GsonBuilder register(GsonBuilder builder) {
         Gson gson = new Gson();
         for (Map.Entry<Type, TypeAdapter<?>> entry : typeAdapters.entrySet()) {

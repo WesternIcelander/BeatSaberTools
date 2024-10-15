@@ -28,6 +28,7 @@ public class SongContainerZip extends SongContainer {
         ZipEntry entry;
         try {
             entry = zipFile.getEntry(name);
+            if (entry == null) entry = zipFile.getEntry(findCaseInsensitiveFile(name));
         } catch (IllegalStateException e) {
             throw new IOException("Already closed", e);
         }
@@ -40,6 +41,7 @@ public class SongContainerZip extends SongContainer {
         ZipEntry entry;
         try {
             entry = zipFile.getEntry(name);
+            if (entry == null) entry = zipFile.getEntry(findCaseInsensitiveFile(name));
         } catch (IllegalStateException e) {
             return 0L;
         }

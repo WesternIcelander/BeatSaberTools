@@ -14,7 +14,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +26,6 @@ public class Song {
     private final Map<String, byte[]> dataCache = new HashMap<>();
     private final Map<String, JsonElement> jsonFiles = new HashMap<>();
     private JsonObject infoJson = null;
-    private String infoJsonName = null;
     private String hash;
 
     public Song(SongContainer container) {
@@ -74,7 +72,7 @@ public class Song {
             try {
                 List<String> datFiles = new ArrayList<>();
                 JsonObject info = getInfoJson();
-                datFiles.add(infoJsonName);
+                datFiles.add("Info.dat");
                 if (info == null) return null;
                 JsonArray beatmapSets = info.getAsJsonArray("_difficultyBeatmapSets");
                 for (JsonElement beatmapSetElement : beatmapSets) {
@@ -133,20 +131,6 @@ public class Song {
     public JsonObject getInfoJson() {
         if (infoJson == null) {
             infoJson = getJson("Info.dat");
-            if (infoJson == null) {
-                Collection<String> allFiles = container.getAllFiles();
-                for (String file : allFiles) {
-                    if (file.equalsIgnoreCase("Info.dat")) {
-                        infoJson = getJson(file);
-                        if (infoJson != null) {
-                            infoJsonName = file;
-                            break;
-                        }
-                    }
-                }
-            } else {
-                infoJsonName = "Info.dat";
-            }
         }
         return infoJson;
     }

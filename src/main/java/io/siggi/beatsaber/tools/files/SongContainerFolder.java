@@ -24,12 +24,20 @@ public class SongContainerFolder extends SongContainer {
         return directory;
     }
 
+    private File getFileName(String name) {
+        File f = new File(directory, name);
+        if (!f.exists()) {
+            f = new File(directory, findCaseInsensitiveFile(name));
+        }
+        return f;
+    }
+
     @Override
     public InputStream getFile(String name) throws IOException {
         if (name.replace("\\", "/").contains("../")) {
             throw new FileNotFoundException();
         }
-        return new FileInputStream(new File(directory, name));
+        return new FileInputStream(getFileName(name));
     }
 
     @Override
@@ -37,7 +45,7 @@ public class SongContainerFolder extends SongContainer {
         if (name.replace("\\", "/").contains("../")) {
             return 0L;
         }
-        return new File(directory, name).length();
+        return getFileName(name).length();
     }
 
     @Override

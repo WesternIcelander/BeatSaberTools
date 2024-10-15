@@ -18,7 +18,7 @@ public abstract class SongContainer implements Closeable {
     public abstract Collection<String> getAllFiles();
 
     public static SongContainer open(File file) throws IOException {
-        if (file.getName().equals("Info.dat")) {
+        if (file.getName().equalsIgnoreCase("Info.dat")) {
             file = file.getParentFile();
         }
         if (file.isDirectory()) {
